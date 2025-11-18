@@ -27,10 +27,10 @@
           <a class="nav-link" href="index.php?page=connect">Connexion</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php?page=ListeArticles">Liste des articles</a>
+          <a class="nav-link" href="index.php?page=AjoutArticle">Nouvel Article</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php?page=AjoutArticle">Nouveau</a>
+          <a class="nav-link" href="index.php?page=AjoutCommentaire">Nouveau Commentaire</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="index.php?page=contact">Contact</a>
@@ -40,6 +40,12 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="index.php?page=ListeUser">Liste Des Utilisateurs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php?page=ListeArticles">Liste Des articles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php?page=ListeCommentaires">Liste Des Commentaires</a>
         </li>
 
       </ul>
