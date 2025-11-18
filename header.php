@@ -47,7 +47,13 @@
         <li class="nav-item">
           <a class="nav-link" href="index.php?page=ListeCommentaires">Liste Des Commentaires</a>
         </li>
-
+        <?php
+        if(isset($_SESSION['login'])){
+          $email = $_SESSION['login'];
+        echo '<li class="nav-item">
+          <a class="nav-link" href="">'.$email.'</a>
+        </li>';}
+        ?>
       </ul>
       <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Search">

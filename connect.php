@@ -1,21 +1,48 @@
 <?php
 if (isset($_POST["Valider"])) {
-  //var_dump($_POST);
-  $email = $_POST["AdresseMail"];
-  $password = htmlentities($_POST["Password"]);
+    //var_dump($_POST);
+    $email = $_POST["AdresseMail"];
+    $password = htmlentities($_POST["Password"]);
 
-  if (empty($email)) {
-    echo 'Veuillez saisir un Email';
-  }
-  else{
-    echo "$email";
-  }
-  if (empty($password)) {
-    echo 'Veuillez saisir un Mot De passe';
-  }
-  else{
-    echo "$password";
-  }
+    if (empty($email)) {
+        echo 'Veuillez saisir un Email';
+        $validemail = false;
+    } else {
+        $validemail = true;
+    }
+    if (empty($password)) {
+        echo 'Veuillez saisir un Mot De passe';
+        $valipassword = false;
+    } else {
+        $validpassword = true;
+    }
+    //si L'email et le mot de passe sont saisis
+    if (($validemail)&&($validpassword)){
+      //on ecrit la requête qui va retourner les informations de l'utilisateur qui possède cet email
+      $sql = 'SELECT name, surname, email,password FROM User where email= :email';
+      //on prépare la requête
+      $sql = $dbh->prepare($sql);
+      // on associe la variable $email à la variable :email , cela protège des codes malveillants
+      $sql->bindParam(':email', $email, PDO::PARAM_STR);
+      // execute la requete
+      $sql->execute();
+      // on récupère la ligne de résultat
+      $row = $sql->fetch();
+      // si la ligne est nulle c'est que l'uilisateur n'existe pas
+      if($row==NULL){
+      // Alors , on écrit qu'il n'as pas les bons identifiants
+      echo "Identifiants Incorrects";
+    }
+    else{
+      if (password_verify($password, $row['password'])) {
+        // la connexion à réussi et nous stockons l'email de la personne dans le tableau $_session en créant la clef login
+      $_SESSION['login'] = $row['email'];
+      header('Location:index.php');
+    } else {
+      echo "Identifiants Incorrects";
+    }
+    }
+    }
 }
 ?>
 <form action="index.php?page=connect" method="post">
