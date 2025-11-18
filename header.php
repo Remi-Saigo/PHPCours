@@ -27,8 +27,21 @@
           <a class="nav-link" href="index.php?page=connect">Connexion</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="index.php?page=ListeArticles">Liste des articles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php?page=AjoutArticle">Nouveau</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="index.php?page=contact">Contact</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php?page=ListeContacts">Liste Des Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php?page=ListeUser">Liste Des Utilisateurs</a>
+        </li>
+
       </ul>
       <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Search">

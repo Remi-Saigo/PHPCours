@@ -2,7 +2,7 @@
 if (isset($_POST["Valider"])) {
   //var_dump($_POST);
   $email = $_POST["AdresseMail"];
-  $password = $_POST["Password"];
+  $password = htmlentities($_POST["Password"]);
 
   if (empty($email)) {
     echo 'Veuillez saisir un Email';

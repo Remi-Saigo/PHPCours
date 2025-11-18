@@ -2,9 +2,9 @@
 if (isset($_POST["Valider"])) {
     //var_dump($_POST);
     $email = $_POST["Mail"];
-    $password = $_POST["Password"];
-    $name = $_POST["Nom"];
-    $surname = $_POST["Prenom"];
+    $password = htmlentities($_POST["Password"]);
+    $name = htmlentities($_POST["Nom"]);
+    $surname = htmlentities($_POST["Prenom"]);
 
     if (empty($email) || empty($password) || empty($name) || empty($surname)) {
         echo "Veuillez remplir tous les champs :<br>";
