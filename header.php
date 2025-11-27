@@ -21,9 +21,6 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php?page=signup">S'inscrire</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="index.php?page=AjoutArticle">Nouvel Article</a>
         </li>
         <li class="nav-item">
@@ -49,6 +46,7 @@
         if(isset($_SESSION['login'])){
           //$email reçoit la valeur stockée dans $_SESSION 
           $email = $_SESSION['login'];
+          $role = $_SESSION['login'];
           //On affiche du HTML pour incliure l'adresse mail dans la navbar et prouver qu'on est connectés
         echo '<li class="nav-item">
           <a class="nav-link" href="">'.$email.'</a>
@@ -59,6 +57,9 @@
         else {
           echo '<li class="nav-item">
           <a class="nav-link" href="index.php?page=connect">Connexion</a>
+        </li>';
+        echo '<li class="nav-item">
+        <a class="nav-link" href="index.php?page=signup">S\'inscrire</a>
         </li>';
         }
         ?>

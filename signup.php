@@ -27,7 +27,7 @@ if (!empty($email) && !empty($password) && !empty($name) && !empty($surname)) {
   //nous hachons le mot de passe avec l'algo choisi par php. Transforme mdp en longue chaine de charactères
 $password = password_hash("$password", PASSWORD_DEFAULT);
   //On prépare une requête d'insertion avec une collone de la table qui associe avec une donnée
-    $sql = $dbh->prepare("INSERT INTO User(`name`, `surname`, `email`, `password`) VALUES (:name, :surname, :email, :password)");
+    $sql = $dbh->prepare("INSERT INTO User(`name`, `surname`, `email`, `password`,`role`) VALUES (:name, :surname, :email, :password,'User')");
     //Associe une variable de la requpete avec une variable php en précisant son type
     $sql->bindParam(':name', $name, PDO::PARAM_STR);
     $sql->bindParam(':surname', $surname, PDO::PARAM_STR);
