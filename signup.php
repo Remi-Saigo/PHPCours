@@ -1,10 +1,10 @@
 <?php
 if (isset($_POST["Valider"])) {
     //var_dump($_POST);
-    $email = $_POST["Mail"];
+    $email = htmlentities($_POST["Mail"]);
     $password = htmlentities($_POST["Password"]);
-    $name = htmlentities($_POST["Nom"]);
-    $surname = htmlentities($_POST["Prenom"]);
+    $name = htmlentities($_POST["Name"]);
+    $surname = htmlentities($_POST["Surname"]);
 
     if (empty($email) || empty($password) || empty($name) || empty($surname)) {
         echo "Veuillez remplir tous les champs :<br>";
@@ -58,11 +58,11 @@ $password = password_hash("$password", PASSWORD_DEFAULT);
       </div>
       <div>
         <label for="exampleInputName" class="form-label mt-4">Nom</label>
-        <input type="text" class="form-control" id="exampleInputName" placeholder="Nom" name="Nom"autocomplete="off">
+        <input type="text" class="form-control" id="exampleInputName" placeholder="Nom" name="Name"autocomplete="off">
       </div>
       <div>
         <label for="exampleInputSurname" class="form-label mt-4">Prénom</label>
-        <input type="text" class="form-control" id="exampleInputSurname" placeholder="Surname" name="Prenom"autocomplete="off">
+        <input type="text" class="form-control" id="exampleInputSurname" placeholder="Surname" name="Surname"autocomplete="off">
       </div>
     </div>
     <div class="col-12 col-md-6">
