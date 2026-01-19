@@ -1,7 +1,7 @@
-<h1 class = "text-danger text-center">Commentaires</h1>
+<h1 class = "text-danger text-center">Liste des Commentaires</h1>
 <?php
-$sql = 'SELECT Titre, Contenu, DatePublication, Modere FROM Commentaire';
-echo "<table> <tr> <th>Titre</th> <th>Contenu</th> <th>Date de Publication</th> <th>Etat de la moderation</th> </tr>";
+$sql = 'SELECT Titre, Contenu, DatePublication FROM Commentaire ORDER BY DatePublication desc';
+echo "<table> <tr> <th>Sujet</th> <th>Date De Publication</th> </tr>";
 foreach ($dbh->query($sql) as $row) {
     echo "<tr><td>";
     echo $row['Titre'] . "\t";
@@ -9,8 +9,6 @@ foreach ($dbh->query($sql) as $row) {
     echo $row['Contenu'] . "\t";
     echo "</td><td>";
     echo $row['DatePublication'] . "\t";
-    echo "</td><td>";
-    echo $row['Modere'] . "\t";
     echo "</td></tr>";
 }
 echo"</table>";

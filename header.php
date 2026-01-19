@@ -1,3 +1,10 @@
+<?php
+// si la session n'est pas démarré alors le faire
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,48 +28,80 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php?page=AjoutArticle">Nouvel Article</a>
+          <a class="nav-link" href="index.php?page=contact">Nous Contacter</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index.php?page=AjoutCommentaire">Nouveau Commentaire</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index.php?page=contact">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index.php?page=ListeContacts">Liste Des Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index.php?page=ListeUser">Liste Des Utilisateurs</a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="index.php?page=ListeArticles">Liste Des articles</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="index.php?page=ListeCommentaires">Liste Des Commentaires</a>
         </li>
+
+
         <?php
-        // Si on est connecté , si la clef login existe dans le tableau $_SESSION 
-        if(isset($_SESSION['login'])){
-          //$email reçoit la valeur stockée dans $_SESSION 
-          $email = $_SESSION['login'];
-          $role = $_SESSION['login'];
-          //On affiche du HTML pour incliure l'adresse mail dans la navbar et prouver qu'on est connectés
+// Si on est connecté , si la clef login existe dans le tableau $_SESSION
+if (isset($_SESSION['login'])) {
+    //$email reçoit la valeur stockée dans $_SESSION
+    $email = $_SESSION['login'];
+    $role = $_SESSION['login'];
+    if ($_SESSION['role'] == 'Admin') {;
+        echo '  <li class="nav-item">
+            <a class="nav-link" href="index.php?page=ListeCategories">Liste Des Catégories</a>
+          </li>';
+        echo ' <li class="nav-item">
+          <a class="nav-link" href="index.php?page=ListeUser">Liste Des Utilisateurs</a>
+        </li>';
         echo '<li class="nav-item">
-          <a class="nav-link" href="">'.$email.'</a>
+        <a class="nav-link" href="index.php?page=AjoutCategorie">Nouvelle Catégorie</a>
+      </li>';
+        echo '  <li class="nav-item">
+            <a class="nav-link" href="index.php?page=ListeCategories">Liste Des Catégories</a>
+          </li>';
+          echo '<li class="nav-item">
+          <a class="nav-link" href="index.php?page=ListeContacts">Liste Des Contact</a>
+        </li>';
+        echo '<li class="nav-item">
+        <a class="nav-link" href="index.php?page=AjoutCommentaire">Nouveau Commentaire</a>
+      </li>';
+    echo '<li class="nav-item">
+        <a class="nav-link" href="index.php?page=AjoutArticle">Nouvel Article</a>
+      </li>';
+    echo '<li class="nav-item">
+        <a class="nav-link" href="index.php?page=AjoutCategorie">Nouvelle Catégorie</a>
+      </li>';}
+          else{
+    if ($_SESSION['role'] == 'User') {;
+        echo '<li class="nav-item">
+            <a class="nav-link" href="index.php?page=AjoutCommentaire">Nouveau Commentaire</a>
+          </li>';
+        echo '<li class="nav-item">
+            <a class="nav-link" href="index.php?page=AjoutArticle">Nouvel Article</a>
+          </li>';
+        echo '<li class="nav-item">
+            <a class="nav-link" href="index.php?page=AjoutCategorie">Nouvelle Catégorie</a>
+          </li>';
+        echo '  <li class="nav-item">
+                <a class="nav-link" href="index.php?page=ListeCategories">Liste Des Catégories</a>
+              </li>';}
+            }
+    //On affiche du HTML pour incliure l'adresse mail dans la navbar et prouver qu'on est connectés
+    echo '<li class="nav-item">
+          <a class="nav-link" href="">' . $email . '</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="index.php?page=Deconnexion">Se Deconnecter</a>
-        </li>';}
-        else {
-          echo '<li class="nav-item">
+        </li>';
+} else {
+    echo '<li class="nav-item">
           <a class="nav-link" href="index.php?page=connect">Connexion</a>
         </li>';
-        echo '<li class="nav-item">
+    echo '<li class="nav-item">
         <a class="nav-link" href="index.php?page=signup">S\'inscrire</a>
         </li>';
-        }
-        ?>
+}
+?>
+
       </ul>
       <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Search">

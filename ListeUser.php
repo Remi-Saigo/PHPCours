@@ -14,6 +14,7 @@ if (isset($_SESSION['login'])) {
             $r = $sql->execute();
         }
         if ((isset($_GET['action'])) && (isset($_GET['user']))) {
+            //faire requête sql delete
             if ($_GET['action'] == 'supprimmer') {
                 $r = 'User';
             } else {

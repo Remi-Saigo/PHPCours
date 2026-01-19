@@ -1,6 +1,5 @@
 <?php
 if (isset($_POST["Valider"])) {
-    //var_dump($_POST);
     $email = htmlentities($_POST["Mail"]);
     $password = htmlentities($_POST["Password"]);
     $name = htmlentities($_POST["Name"]);
@@ -22,20 +21,14 @@ if (isset($_POST["Valider"])) {
         }
 
       }
-    //on protège l'inscription en vérifiant qu'il n'y a aucun champ vide
 if (!empty($email) && !empty($password) && !empty($name) && !empty($surname)) {
-  //nous hachons le mot de passe avec l'algo choisi par php. Transforme mdp en longue chaine de charactères
 $password = password_hash("$password", PASSWORD_DEFAULT);
-  //On prépare une requête d'insertion avec une collone de la table qui associe avec une donnée
     $sql = $dbh->prepare("INSERT INTO User(`name`, `surname`, `email`, `password`,`role`) VALUES (:name, :surname, :email, :password,'User')");
-    //Associe une variable de la requpete avec une variable php en précisant son type
     $sql->bindParam(':name', $name, PDO::PARAM_STR);
     $sql->bindParam(':surname', $surname, PDO::PARAM_STR);
     $sql->bindParam(':email', $email, PDO::PARAM_STR);
     $sql->bindParam(':password', $password, PDO::PARAM_STR);
-        //execute la commande préparée et met le résultat dans $r
         $r = $sql->execute();
-        // si $r = vrai , alors l'inscription est réussie 
         if ($r) {
             echo "Inscription réussie";
         } else {
