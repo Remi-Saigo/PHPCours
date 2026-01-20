@@ -46,15 +46,9 @@ if (isset($_SESSION['login'])) {
     $email = $_SESSION['login'];
     $role = $_SESSION['login'];
     if ($_SESSION['role'] == 'Admin') {;
-        echo '  <li class="nav-item">
-            <a class="nav-link" href="index.php?page=ListeCategories">Liste Des Catégories</a>
-          </li>';
         echo ' <li class="nav-item">
           <a class="nav-link" href="index.php?page=ListeUser">Liste Des Utilisateurs</a>
         </li>';
-        echo '<li class="nav-item">
-        <a class="nav-link" href="index.php?page=AjoutCategorie">Nouvelle Catégorie</a>
-      </li>';
         echo '  <li class="nav-item">
             <a class="nav-link" href="index.php?page=ListeCategories">Liste Des Catégories</a>
           </li>';
@@ -80,10 +74,7 @@ if (isset($_SESSION['login'])) {
           </li>';
         echo '<li class="nav-item">
             <a class="nav-link" href="index.php?page=AjoutCategorie">Nouvelle Catégorie</a>
-          </li>';
-        echo '  <li class="nav-item">
-                <a class="nav-link" href="index.php?page=ListeCategories">Liste Des Catégories</a>
-              </li>';}
+          </li>';}
             }
     //On affiche du HTML pour incliure l'adresse mail dans la navbar et prouver qu'on est connectés
     echo '<li class="nav-item">
