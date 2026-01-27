@@ -63,13 +63,22 @@ if (isset($_SESSION['login'])) {
             $email = $_POST['email'];
             echo $id;
             echo $user;
-            $sql = "UPDATE User SET name=:name , email=:email , password=:password WHERE id=:id";
+            if(!empty($password)){
+            echo 'Le mot de Passe n\'est pas vide';
             $password = password_hash("$password", PASSWORD_DEFAULT);
+            $sql = "UPDATE User SET name=:name , email=:email , password=:password WHERE id=:id";
+
+        } else {
+            $sql = "UPDATE User SET name=:name , email=:email WHERE id=:id";
+        }
+            
             $sql = $dbh->prepare($sql);
             $sql->bindParam(':id', $id, PDO::PARAM_INT);
             $sql->bindParam(':name', $user, PDO::PARAM_STR);
-            $sql->bindParam(':password', $password, PDO::PARAM_STR);
             $sql->bindParam(':email', $email, PDO::PARAM_STR);
+            if(!empty($password)){
+                $sql->bindParam(':password', $password, PDO::PARAM_STR);
+            }
             $sql->execute();
             $row = $sql->fetch();
             header('Location:index.php?page=ListeUser');

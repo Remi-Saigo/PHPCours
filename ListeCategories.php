@@ -10,6 +10,14 @@ if (isset($_SESSION['login'])) {
             }
 
         }
+        if ((isset($_GET['action'])) && (isset($_GET['categorie']))) {
+            //faire requête sql delete
+            if ($_GET['action'] == 'supprimer') {
+                $sql = $dbh->prepare("DELETE FROM Categorie where id  = :id");
+                $sql->bindParam(':id', $_GET['categorie'], PDO::PARAM_INT);
+                $r = $sql->execute();
+            }
+        }
         
 
         $sql = 'SELECT name, publishdate, id FROM Categorie';
@@ -19,7 +27,8 @@ if (isset($_SESSION['login'])) {
             echo $row['name'] . "\t";
             echo "</td><td>";
             echo $row['publishdate'] . "\t";
-            echo '<td><a href=index.php?page=modifcategorie&categorie=' . $row['id'] . '>modifier</a></td>';
+            echo "<td><a class=\"btn btn-outline-primary\" href=index.php?page=modifcategorie&categorie=" . $row['id'] . '>modifier</a></td>';
+            echo "</a></td><td><a class=\"btn btn-outline-primary\" href=index.php?page=ListeCategories&categorie=" . $row['id'] . "&action=supprimer\"> Supprimer</a></td></tr>";
             echo "</td><tr>";
         }
         echo "</table>";} else {

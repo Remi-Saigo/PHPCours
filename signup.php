@@ -19,22 +19,31 @@ if (isset($_POST["Valider"])) {
         if (empty($surname)) {
             echo 'Veuillez saisir un Prénom<br>';
         }
+    } 
+        $sql = "SELECT email FROM User WHERE email=:email";
+        $sql = $dbh->prepare($sql);
+        $sql->bindParam(':email', $mail, PDO::PARAM_STR);
+        $sql->execute();
+        $row2 = $sql->fetch();
 
-      }
-if (!empty($email) && !empty($password) && !empty($name) && !empty($surname)) {
-$password = password_hash("$password", PASSWORD_DEFAULT);
-    $sql = $dbh->prepare("INSERT INTO User(`name`, `surname`, `email`, `password`,`role`) VALUES (:name, :surname, :email, :password,'User')");
-    $sql->bindParam(':name', $name, PDO::PARAM_STR);
-    $sql->bindParam(':surname', $surname, PDO::PARAM_STR);
-    $sql->bindParam(':email', $email, PDO::PARAM_STR);
-    $sql->bindParam(':password', $password, PDO::PARAM_STR);
+    if ($row2 == null && !empty($email) && !empty($password) && !empty($name) && !empty($surname)) {
+        $password = password_hash("$password", PASSWORD_DEFAULT);
+        $sql = $dbh->prepare("INSERT INTO User(`name`, `surname`, `email`, `password`,`role`) VALUES (:name, :surname, :email, :password,'User')");
+        $sql->bindParam(':name', $name, PDO::PARAM_STR);
+        $sql->bindParam(':surname', $surname, PDO::PARAM_STR);
+        $sql->bindParam(':email', $email, PDO::PARAM_STR);
+        $sql->bindParam(':password', $password, PDO::PARAM_STR);
         $r = $sql->execute();
+        $row = $sql->fetch();
         if ($r) {
             echo "Inscription réussie";
         } else {
             echo "Inscription échouée";
-        } 
-    }   
+        }
+    } else {
+      echo "Email déjà utilisé";
+  }
+    
 }
 ?>
 
