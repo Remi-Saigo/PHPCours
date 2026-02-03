@@ -136,7 +136,8 @@ $sqlsel = $dbh->prepare("
         c.Contenu,
         c.DatePublication,
         u.name,
-        u.surname
+        u.surname,
+        u.photo
     FROM Commentaire c
     JOIN User u ON c.iduser = u.id
     WHERE c.idarticle = :idarticle
@@ -150,18 +151,22 @@ echo "<h3 class='mt-4'>Commentaires</h3>";
 
 if (!empty($commentaires)) {
     foreach ($commentaires as $comment) {
+        $photoSrc = !empty($comment['photo']) ? 'images/' . $comment['photo'] : 'images/default-avatar.svg';
         echo '
         <div class="card mb-2">
             <div class="card-body">
                 <h5>' . htmlspecialchars($comment['Titre']) . '</h5>
                 <p>' . nl2br(htmlspecialchars($comment['Contenu'])) . '</p>
 
-                <small class="text-muted">
-                    Posté par <strong>' .
-                    htmlspecialchars($comment['name']) . ' ' .
-                    htmlspecialchars($comment['surname']) .
-                    '</strong> le ' . $comment['DatePublication'] . '
-                </small>';
+                <div class="d-flex align-items-center">
+                    <img src="' . htmlspecialchars($photoSrc) . '" alt="Photo de profil" class="rounded-circle me-2" style="width:40px;height:40px;object-fit:cover;">
+                    <small class="text-muted">
+                        Posté par <strong>' .
+                        htmlspecialchars($comment['name']) . ' ' .
+                        htmlspecialchars($comment['surname']) .
+                        '</strong> le ' . $comment['DatePublication'] . '
+                    </small>
+                </div>';
 
         if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
             echo '
