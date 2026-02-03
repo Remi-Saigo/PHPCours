@@ -19,7 +19,7 @@ if (isset($_POST["Valider"])) {
     //si L'email et le mot de passe sont saisis
     if (($validemail) && ($validpassword)) {
         //on ecrit la requête qui va retourner les informations de l'utilisateur qui possède cet email
-        $sql = 'SELECT name, surname, email,password,role FROM User where email= :email';
+        $sql = 'SELECT name, surname, email,password,role,id FROM User where email= :email';
         //on prépare la requête
         $sql = $dbh->prepare($sql);
         // on associe la variable $email à la variable :email , cela protège des codes malveillants
@@ -37,6 +37,7 @@ if (isset($_POST["Valider"])) {
                 // la connexion à réussi et nous stockons l'email de la personne dans le tableau $_session en créant la clef login
                 $_SESSION['login'] = $row['email'];
                 $_SESSION['role'] = $row['role'];
+                $_SESSION['id'] = $row['id'];
                 header('Location:index.php');
                 exit;
             } else {
