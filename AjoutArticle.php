@@ -1,7 +1,6 @@
 <h1 class = "text-danger text-center">Nouvel Article</h1>
 <?php
 if (isset($_POST["Valider"])) {
-    //var_dump($_FILES);
     $subject =htmlentities($_POST["Subject"]);
     $article =nl2br($_POST["Article"]);
 
@@ -10,19 +9,45 @@ if (isset($_POST["Valider"])) {
             $validsubject = false;
         }else $validsubject = true;
 
-    if ($validsubject = true||!empty($article)) {
+
+        $annuler=FALSE;
+        $taillemax=500*1000;
+        //var_dump($_FILES);
+    if ($validsubject = true&&  !empty($article)) {
 
         if (isset($_FILES['image'])){
+            if ($_FILES['image']['size'] > $taillemax) {
+                echo "Fichier trop volumineux ,500 Ko max";
+                $annuler = true;
+                $image=NULL;
+                $anciennom=NULL;
+            } else {
+            if(!empty($_FILES['image']['name'])){
             //On récupère le nom temporaire du fichier
             $tmp=$_FILES['image']['tmp_name'];
             $name=$_FILES['image']['name'];
-            $extension=strtolower();
             $image=uniqid().substr($name, -5);
-            move_uploaded_file($tmp,'images/'.$image);
+            $extension=strtolower(pathinfo($name,PATHINFO_EXTENSION));
+            $fa = array("png","jpg","jpeg","webp","pdf");
             $anciennom=$name;
+            if (!in_array($extension, $fa)){
+                echo 'L\'extension n\'est pas accéptée';
+                $image=NULL;
+                $anciennom=NULL;
+                $annuler=TRUE;
+            }
+            if(!$annuler){
+                move_uploaded_file($tmp,'images/'.$image);
+            }
         }
+        else{
+            $image=NULL;
+            $anciennom=NULL;
+        }
+    }
+}
 
-        
+        if(!$annuler){
         $publishdate = date("Y-m-d H:i:s");
         $sql = $dbh->prepare("INSERT INTO Article(`subject`, `content`, `publishdate`,`images`, `anciennom` ) VALUES (:subject, :content, :publishdate, :images, :anciennom)");
         $sql->bindParam(':subject', $subject, PDO::PARAM_STR);
@@ -37,6 +62,7 @@ if (isset($_POST["Valider"])) {
             echo "Echec de L'ajout";
         }
     }
+}
 }
 ?>
 
