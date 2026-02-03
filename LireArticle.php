@@ -151,7 +151,7 @@ echo "<h3 class='mt-4'>Commentaires</h3>";
 
 if (!empty($commentaires)) {
     foreach ($commentaires as $comment) {
-        $photoSrc = !empty($comment['photo']) ? 'images/' . $comment['photo'] : 'images/default-avatar.svg';
+        $photo = !empty($comment['photo']) ? 'images/' . $comment['photo'] : 'images/default-avatar.svg';
         echo '
         <div class="card mb-2">
             <div class="card-body">
@@ -159,7 +159,7 @@ if (!empty($commentaires)) {
                 <p>' . nl2br(htmlspecialchars($comment['Contenu'])) . '</p>
 
                 <div class="d-flex align-items-center">
-                    <img src="' . htmlspecialchars($photoSrc) . '" alt="Photo de profil" class="rounded-circle me-2" style="width:40px;height:40px;object-fit:cover;">
+                    <img src="' . htmlspecialchars($photo) . '" alt="Photo de profil" class="rounded-circle me-2" style="width:40px;height:40px;object-fit:cover;">
                     <small class="text-muted">
                         Posté par <strong>' .
                         htmlspecialchars($comment['name']) . ' ' .
