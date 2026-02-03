@@ -47,7 +47,15 @@ if (
     echo "<div class='alert alert-success'>Commentaire supprimé</div>";
 }
 
-echo '<h1 class="mb-3">' . htmlspecialchars($row['subject']) . '</h1>';
+echo '<div class="d-flex align-items-start justify-content-between mb-3">
+        <h1 class="mb-0">' . htmlspecialchars($row['subject']) . '</h1>';
+
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
+    echo '<a class="btn btn-sm btn-outline-primary"
+            href="index.php?page=ModifierArticle&article=' . $article . '">Modifier</a>';
+}
+
+echo '</div>';
 
 echo '
 <div class="card mb-4">
